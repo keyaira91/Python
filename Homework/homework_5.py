@@ -18,11 +18,17 @@ def next_roll():
     two = random.randint(1,6)
     dice = one + two
     print(f"You rolled a {dice}. Die faces were {one} and {two}")
-    if dice != point[0]:
-        print(input("Press enter to roll again"))
-        next_roll()
-    elif dice == 7:
-        print("You Lose")
+    if dice == 7:
+        print("You Lose!")
+        play_again = input("\nYou lost! But you can always play again: (y/n)")
+        if play_again == 'n':
+            exit()
+        else:
+            point.pop()
+            first_roll()
+    elif dice != point[0]:
+         print(input("Press enter to roll again"))
+         next_roll()
     else:
         print("You Win!")
         play_again2 = input("\nYou won! Do you want to play again: (y/n)")
@@ -37,7 +43,6 @@ def next_roll():
 point = []
 dice = 0
 
-
 print("\nLet's Play Craps!")
 print(input("Press enter to roll the dice!"))
 
@@ -47,10 +52,10 @@ while dice != point[0]:
     if point[0] == 2 or point[0] == 3 or point[0] == 12:
         play_again = input("\nYou lost! But you can always play again: (y/n)")
         if play_again == 'n':
-            exit()
+                exit()
         else:
-            point.pop()
-            first_roll()
+                point.pop()
+                first_roll()
     elif point[0] == 7 or point[0] == 11:
         play_again2 = input("\nYou won! Do you want to play again: (y/n)")
         if play_again2 == 'n':
@@ -73,3 +78,6 @@ while dice != point[0]:
 # Otherwise, what ever you roll becomes your "point". 
 # You'll keep rolling the dice until you roll either a 7 or your point. 
 # If you roll a 7, you lose. If you roll your point, you win the game
+
+# x.startswith()
+# x.endswith()
