@@ -1,6 +1,8 @@
 from datetime import datetime   
 import requests
 import math
+import plotly.graph_objs as go
+from plotly import offline
 
 city = input("\nChoose a city: ")
 url = f"http://api.openweathermap.org/geo/1.0/direct?q={city}&appid=3840960a46edb04110ccd44620fc98cc"
@@ -37,5 +39,14 @@ print('Day\t\t', 'Date\t', '\tLow\t', '\tHigh\t', '\tFeels Like', '\tRain Chance
 for i in range(len(days)):
     print(f'{days[i]}  \t {datestr[i]}\t\t{lows[i]}\t\t{highs[i]}\t\t{feels_like[i]}\t\t{rain[i]:.0%}')
 
-
- 
+fig = go.Figure(data = [
+    go.Bar(name = 'Lows', x = days[:7], y = lows),
+    go.Bar(name = 'Highs', x = days[:7], y = highs),
+    ])
+fig.update_layout(
+    title_text = f'Weather Forecast for {city}',
+    barmode = 'group', 
+    yaxis=dict(title='°F'),
+    xaxis=dict(title='Weekdays')
+)
+offline.plot(fig, filename = 'weather_chart.html')
