@@ -5,7 +5,7 @@ import plotly.graph_objs as go
 from plotly import offline
 
 city = input("\nChoose a city: ")
-url = f"http://api.openweathermap.org/geo/1.0/direct?q={city}&appid=3840960a46edb04110ccd44620fc98cc"
+url = f"http://api.openweathermap.org/geo/1.0/direct?q={city}&appid + apiKey"
 r = requests.get(url)
 citydata = r.json()
 # print(f"Status code: {r.status_code}")
@@ -19,7 +19,7 @@ else:
     state = ''
 country = citydata[0]['country']
 
-url = f'https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&appid=3840960a46edb04110ccd44620fc98cc'
+url = f'https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&appid + apiKey"
 r = requests.get(url)
 data = r.json()
 daily = data['daily']
