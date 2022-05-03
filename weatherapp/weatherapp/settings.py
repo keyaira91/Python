@@ -130,3 +130,13 @@ WEATHER_API_KEY = "3840960a46edb04110ccd44620fc98cc"
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Heroku settings
+import os
+import django_heroku
+django_heroku.settings(locals())
+
+if os.environ.get('DEBUG') == 'TRUE':
+    DEBUG = True
+elif os.environ.get('DEBUG') =='FALSE':
+    DEBUG = False
