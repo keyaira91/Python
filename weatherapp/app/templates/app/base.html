@@ -1,0 +1,82 @@
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>myWeather</title>
+    <script src="https://kit.fontawesome.com/24eb3344f0.js" crossorigin="anonymous"></script>
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+    <style>
+        body {
+            background-color: rgb(255, 255, 255);
+        }
+        .bg-top {
+          background-color: rgb(11, 165, 62);
+        }
+        .design {
+          border-radius: 20px;
+          width: 18rem;
+          background-color: rgb(252, 252, 252);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-top">
+            <span><i class="fa-solid fa-cloud-bolt"></i></span>
+           <a class="navbar-brand" href="#">myWeather</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">GitHub</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://www.linkedin.com/in/keyairajohnson/">Linkedin</a>
+                  </li>
+              </ul>
+            </div>
+          </nav>
+    </header>
+
+    <form method="post">
+      {% csrf_token %}
+        <div class="container form-group form-check ml-1 form-check-inline">
+          <label class="w-25 p-3"for="city"><strong>Choose a city:</strong></label>
+          <input type="text" class="form-control" name="city" aria-describedby="city" placeholder="e.g. Chicago">
+          <button type="submit" class="btn btn-outline-success">Search</button>   
+        </div>
+    </form>
+
+
+  <div class="row">
+    {% if name and country_code and temp and main %}
+    <div class="col d-flex justify-content-center">
+      <div class="card mb-6 design">
+        <div class="card-body text-center">
+          <h4>{{date}}</h4>
+          <img src="http://openweathermap.org/img/w/{{icon}}.png" class="rounded mx-auto d-block" alt="Image" style="width:70px">
+          <h4>{{temp}}</h4> 
+          <h4>{{main}}</h4> <!--Forecast-->
+          <hr/>
+            <h4>{{name}}</h4>
+            <h4>{{country_code}}</h4>
+        </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+    
+
+</body>
+</html>

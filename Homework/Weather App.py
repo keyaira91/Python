@@ -1,11 +1,12 @@
 from datetime import datetime   
 import requests
 import math
+# from apiKey import apiKey
 import plotly.graph_objs as go
 from plotly import offline
 
 city = input("\nChoose a city: ")
-url = f"http://api.openweathermap.org/geo/1.0/direct?q={city}&appid + apiKey"
+url = f"http://api.openweathermap.org/geo/1.0/direct?q={city}&appid=3840960a46edb04110ccd44620fc98cc"
 r = requests.get(url)
 citydata = r.json()
 # print(f"Status code: {r.status_code}")
@@ -19,7 +20,7 @@ else:
     state = ''
 country = citydata[0]['country']
 
-url = f'https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&appid + apiKey"
+url = f'https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&appid=3840960a46edb04110ccd44620fc98cc'
 r = requests.get(url)
 data = r.json()
 daily = data['daily']
@@ -39,14 +40,14 @@ print('Day\t\t', 'Date\t', '\tLow\t', '\tHigh\t', '\tFeels Like', '\tRain Chance
 for i in range(len(days)):
     print(f'{days[i]}  \t {datestr[i]}\t\t{lows[i]}\t\t{highs[i]}\t\t{feels_like[i]}\t\t{rain[i]:.0%}')
 
-fig = go.Figure(data = [
-    go.Bar(name = 'Lows', x = days[:7], y = lows),
-    go.Bar(name = 'Highs', x = days[:7], y = highs),
-    ])
-fig.update_layout(
-    title_text = f'Weather Forecast for {city}',
-    barmode = 'group', 
-    yaxis=dict(title='°F'),
-    xaxis=dict(title='Weekdays')
-)
-offline.plot(fig, filename = 'weather_chart.html')
+# fig = go.Figure(data = [
+#     go.Bar(name = 'Lows', x = days[:7], y = lows),
+#     go.Bar(name = 'Highs', x = days[:7], y = highs),
+#     ])
+# fig.update_layout(
+#     title_text = f'Weather Forecast for {city}',
+#     barmode = 'group', 
+#     yaxis=dict(title='°F'),
+#     xaxis=dict(title='Weekdays')
+# )
+# offline.plot(fig, filename = 'weather_chart.html')
