@@ -11,7 +11,7 @@
     <meta 
       name="image" 
       property="og:image" 
-      content="https://live.staticflickr.com/65535/52047489102_80cac30679_b.jpg"
+      content="https://live.staticflickr.com/65535/52063278533_34aeb79176_b.jpg"
     />
     <meta 
       name="description" 
@@ -25,27 +25,35 @@
     {% bootstrap_javascript jquery='full' %}
     <style>
         body {
-            background-color: rgb(255, 255, 255);
+          height: 1500px;
+          background: linear-gradient(to bottom, #623b7a 1%, #c4feff 60%);
         }
+        
+        .form-control:focus {
+          border-color: inherit;
+          -webkit-box-shadow: none;
+          box-shadow: none;
+        }
+
         .bg-top {
-          background-color: rgb(11, 165, 62);
+          background-color: #3E1747;
         }
+
         .design {
           border-radius: 20px;
-          width: 18rem;
-          background-color: rgb(252, 252, 252);
+          background-color: #33183888;
+          height: 500px;
         }
+
     </style>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-top">
-            <span><i class="fa-solid fa-cloud-bolt"></i></span>
            <a class="navbar-brand" href="https://keyaira-weather-app.herokuapp.com/">myWeather</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
-            
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
@@ -55,39 +63,70 @@
                     <a class="nav-link" href="https://www.linkedin.com/in/keyairajohnson/">Linkedin</a>
                   </li>
               </ul>
-            </div>
+              <form method="post">
+                    {% csrf_token %}
+                      <div class="form-group mt-2 form-check-inline">
+                        <input type="text" class="form-control mr-sm-2" name="city" aria-describedby="city" placeholder="Search City">
+                        <button type="submit" class="btn btn-outline-light">Search</button>   
+                      </div>
+                  </form>
+              </div>    
           </nav>
     </header>
 
-    <form method="post">
-      {% csrf_token %}
-        <div class="container form-group form-check ml-1 form-check-inline">
-          <label class="w-25 p-3"for="city"><strong>Choose a city:</strong></label>
-          <input type="text" class="form-control" name="city" aria-describedby="city" placeholder="e.g. Chicago">
-          <button type="submit" class="btn btn-outline-success">Search</button>   
-        </div>
-    </form>
+    
 
+  <div class="container">
+   {% if name and country_code and temp and main %} 
+    <div class="row mt-5 text-white">
+      <div class="col-12 d-flex justify-content-center">
+        <div class="card mb-1 p-5 w-40 design shadow-lg ">
+          <div class="card-body">
+            <h3 class="card-title" style="line-height: 4px;">{{name}}, {{state}}</h3>
+            <p class="card-text text-center">{{date}}</p>
+            <img src="http://openweathermap.org/img/w/{{icon}}.png" class="rounded mx-auto d-block" alt="Image" style="width:80px">
+            <h3 class="card-text text-center font-weight-light pb-3" style="line-height: 4px; font-size: 40px;">{{temp}}</h3>
+            <p class="card-text text-center">{{description}}</p>
+            <hr style="background-color: white">
 
-  <div class="row">
-    {% if name and country_code and temp and main %}
-    <div class="col d-flex justify-content-center">
-      <div class="card mb-6 design">
-        <div class="card-body text-center">
-          <h4>{{date}}</h4>
-          <img src="http://openweathermap.org/img/w/{{icon}}.png" class="rounded mx-auto d-block" alt="Image" style="width:70px">
-          <h4>{{temp}}</h4> 
-          <h4>{{main}}</h4> <!--Forecast-->
-          <hr/>
-            <h4>{{name}}</h4>
-            <h4>{{country_code}}</h4>
-        </div>
+            <div class="this_week d-flex justify-content-center">
+              <table>
+                <tr>
+                  <td class="card-text">{{next_day}}<span class="font-weight-bold text-info">{{next_temp}}</span>
+                    <span><img src="http://openweathermap.org/img/w/{{next_icon}}.png" alt="Image" style="width:30px"></span><span>{{next_main}}</span></td>
+                </tr>
+                <tr>
+                  <td class="card-text">{{next_day2}}<span class="ml-1 font-weight-bold text-info">{{next_temp2}}</span>
+                    <span><img src="http://openweathermap.org/img/w/{{next_icon2}}.png" alt="Image" style="width:30px"></span><span>{{next_main2}}</span></td>
+                </tr>
+                <tr>
+                  <td class="card-text">{{next_day3}}&nbsp<span class="ml-2 font-weight-bold text-info">{{next_temp3}}</span>
+                    <span><img src="http://openweathermap.org/img/w/{{next_icon3}}.png" alt="Image" style="width:30px"></span><span>{{next_main3}}</span></td>
+                </tr>
+                <tr>
+                  <td class="card-text">{{next_day4}}<span class="ml-2 font-weight-bold text-info">{{next_temp4}}</span>
+                    <span><img src="http://openweathermap.org/img/w/{{next_icon4}}.png" alt="Image" style="width:30px"></span><span>{{next_main4}}</span></td>
+                </tr>
+              </table>
+            </div>
+
+          </div>
+          </div>
         </div>
       </div>
+  
     </div>
     {% endif %}
-  </div>
-    
+  </div>  
+
+
+
+
+
+
+
+
+
 
 </body>
 </html>
