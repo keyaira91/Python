@@ -45,6 +45,10 @@
           height: 500px;
         }
 
+        .end_end {
+          justify-content: flex-end;
+        }
+
         @media only screen and (max-width:373px) {
           .card-title {
             font-size: 20px;
@@ -63,6 +67,9 @@
           .dt_txt {
             font-size: 12px;
           }
+          .line_space {
+            line-height: 45px;
+          }
           
       }
 
@@ -75,7 +82,14 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-top">
-           <a class="navbar-brand" href="https://keyaira-weather-app.herokuapp.com/">myWeather</a>
+           <form method="post">
+            {% csrf_token %}
+              <div class="form-group mt-2 form-check-inline">
+                <input type="text" class="form-control mr-sm-2" name="city" aria-describedby="city" placeholder="Search City">
+                <button type="submit" class="btn btn-outline-light">Search</button>   
+              </div>
+            </form>
+
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -84,18 +98,9 @@
                 <li class="nav-item">
                   <a class="nav-link active" href="https://github.com/keyaira91/Python">GitHub<span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://www.linkedin.com/in/keyairajohnson/">Linkedin</a>
-                  </li>
               </ul>
-              <form method="post">
-                    {% csrf_token %}
-                      <div class="form-group mt-2 form-check-inline">
-                        <input type="text" class="form-control mr-sm-2" name="city" aria-describedby="city" placeholder="Search City">
-                        <button type="submit" class="btn btn-outline-light">Search</button>   
-                      </div>
-                  </form>
-              </div>    
+            </div>  
+
           </nav>
     </header>
 
@@ -107,7 +112,8 @@
       <div class="col-12 d-flex justify-content-center">
         <div class="card mb-1 p-5 w-40 design shadow-lg ">
           <div class="card-body">
-            <h3 class="card-title" style="line-height: 4px;">{{name}}, {{state}}</h3>
+            <h3 class="card-title text-center line_space" style="line-height: 4px;"> {{name}},</h3>
+            <h3 class="card-title text-center">{{state}}</h3>
             <p class="card-text text-center dt_txt">{{date}}</p>
             <img src="http://openweathermap.org/img/w/{{icon}}.png" class="main_img rounded mx-auto d-block" alt="Image" style="width:80px">
             <h3 class="card-text text-center font-weight-light pb-3" style="line-height: 4px; font-size: 40px;">{{temp}}</h3>
